@@ -174,10 +174,10 @@ public class Client {
 	public static void mainMenu() {
 		int option;
 		String optionString;
-		System.out.println("\n\n\n\n\n\n\n");
 		do {
 			do {
-				System.out.println("He " + USERNAME);
+				System.out.println("\n\n\n\n\n\n\n");
+				System.out.println("Hello " + USERNAME);
 				System.out.println("Main Menu");
 				System.out.println("1-> Meetings");
 				System.out.println("2-> Messages (" + requestNumberOfMessegesToRead() + " new messages)");
@@ -294,7 +294,7 @@ public class Client {
 		}
 		rightOption.add(0);
 		do {
-			System.out.println(options); // display all messages
+			System.out.print(options);
 			System.out.println("0-> Back");
 			System.out.print("Choose an option: ");
 			optionString = SC.nextLine();
@@ -380,7 +380,7 @@ public class Client {
 	
 	public static void SubMenuUpcomingMeetings() {
 		System.out.println("\n\n\n\n\n\n\n\n\n\n");
-		String options = requestMessages();
+		String options = requestListUpcomingMeetings();
 		ArrayList<Integer> rightOption = getRightOptions(options, 1);
 		String optionString;
 		int id_meeting;
@@ -392,7 +392,7 @@ public class Client {
 		}
 		rightOption.add(0);
 		do {
-			System.out.println(options);
+			System.out.print(options);
 			System.out.println("0-> Back");
 			System.out.print("Choose an option: ");
 			optionString = SC.nextLine();
@@ -463,7 +463,7 @@ public class Client {
 	
 	public static void SubMenuCurrentMeetings() {
 		System.out.println("\n\n\n\n\n\n\n\n\n\n");
-		String options = requestMessages();
+		String options = requestListCurrentMeetings();
 		ArrayList<Integer> rightOption = getRightOptions(options, 1);
 		String optionString;
 		int id_meeting;
@@ -475,7 +475,7 @@ public class Client {
 		}
 		rightOption.add(0);
 		do {
-			System.out.println(options);
+			System.out.print(options);
 			System.out.println("0-> Back");
 			System.out.print("Choose an option: ");
 			optionString = SC.nextLine();
@@ -534,7 +534,7 @@ public class Client {
 	
 	public static void SubMenupPastMeetings() {
 		System.out.println("\n\n\n\n\n\n\n\n\n\n");
-		String options = requestMessages();
+		String options = requestListPastMeetings();
 		ArrayList<Integer> rightOption = getRightOptions(options, 1);
 		String optionString;
 		int id_meeting;
@@ -546,7 +546,7 @@ public class Client {
 		}
 		rightOption.add(0);
 		do {
-			System.out.println(options);
+			System.out.print(options);
 			System.out.println("0-> Back");
 			System.out.print("Choose an option: ");
 			optionString = SC.nextLine();
@@ -590,9 +590,7 @@ public class Client {
 				case 2:
 					System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
 					System.out.println("Consult Action Items: ");
-					System.out.println(subMenuConsultActionItems(id_meeting));
-					System.out.println("Press any key to continue...");
-					SC.nextLine();
+					subMenuConsultActionItems(id_meeting);
 					break;
 				default:
 					System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
@@ -602,16 +600,14 @@ public class Client {
 		} while (true);
 	}
 	
-	private static char[] subMenuConsultActionItems(int id_meeting) {
+	private static void subMenuConsultActionItems(int id_meeting) {
 		String options = requestActionItemsFromMeeting(id_meeting);
 		System.out.println(options);
 		System.out.println("Insert any key to return!");
 		SC.nextLine();
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
-		return null;
 	}
-
-
+	
 	public static void subMenuConsultAgendaItemsPM(int id_meeting) {
 		System.out.println("\n\n\n\n\n\n\n\n\n\n");
 		String options = requestAgendaItemsFromMeeting(id_meeting);
@@ -729,7 +725,7 @@ public class Client {
 	public static void subMenuDeleteItemstFromAgenda(int id_meeting) {
 		int id_agenda_item;
 		String options = requestAgendaItemsFromMeeting(id_meeting), optionString;
-		ArrayList<Integer> rightOption = getRightOptions(options, 0);
+		ArrayList<Integer> rightOption = getRightOptions(options, 1);
 		if (rightOption == null) {
 			System.out.println("You have no agenda itens in this meeting that can be deleted");
 			System.out.println("Insert any key to return");
@@ -739,8 +735,9 @@ public class Client {
 		rightOption.add(0);
 		String[] countOptions = options.split("\n");
 		do {
-			for (int i = 0; i < countOptions.length - 1; i++) {
-				System.out.println(countOptions[i]);
+			for (int i = 0; i < countOptions.length; i++) {
+				if (!countOptions[i].split("-")[1].equals("> Any Other Business"))
+					System.out.println(countOptions[i]);
 			}
 			System.out.println("0-> Back");
 			System.out.print("Choose an option: ");
@@ -776,7 +773,7 @@ public class Client {
 	public static void subMenuModifyAgendaItem(int id_meeting) {
 		int id_agenda_item;
 		String options = requestAgendaItemsFromMeeting(id_meeting), optionString;
-		ArrayList<Integer> rightOption = getRightOptions(options, 0);
+		ArrayList<Integer> rightOption = getRightOptions(options, 1);
 		if (rightOption == null) {
 			System.out.println("You have no agenda itens in this meeting that can be modified");
 			System.out.println("Insert any key to return");
@@ -786,8 +783,9 @@ public class Client {
 		rightOption.add(0);
 		String[] countOptions = options.split("\n");
 		do {
-			for (int i = 0; i < countOptions.length - 1; i++) {
-				System.out.println(countOptions[i]);
+			for (int i = 0; i < countOptions.length; i++) {
+				if (!countOptions[i].split("-")[1].equals("> Any Other Business"))
+					System.out.println(countOptions[i]);
 			}
 			System.out.println("0-> Back");
 			System.out.print("Choose an option: ");
@@ -810,6 +808,42 @@ public class Client {
 		System.out.println("Insert any key to return!");
 		SC.nextLine();
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+	}
+	
+	private static String requestListUpcomingMeetings() {
+		String result = "";
+		try {
+			OUT.write(2);
+			result = IN.readUTF();
+		} catch (Exception e) {
+			connect(0);
+			return requestListUpcomingMeetings();
+		}
+		return result;
+	}
+	
+	private static String requestListCurrentMeetings() {
+		String result = "";
+		try {
+			OUT.write(17);
+			result = IN.readUTF();
+		} catch (Exception e) {
+			connect(0);
+			return requestListCurrentMeetings();
+		}
+		return result;
+	}
+	
+	private static String requestListPastMeetings() {
+		String result = "";
+		try {
+			OUT.write(3);
+			result = IN.readUTF();
+		} catch (Exception e) {
+			connect(0);
+			return requestListPastMeetings();
+		}
+		return result;
 	}
 	
 	private static String requestActionItemsFromMeeting(int id_meeting) {
@@ -860,7 +894,7 @@ public class Client {
 	public static String requestMessagesFromAgendaItem(int id_agenda_item) {
 		String result = "";
 		try {
-			OUT.write(23);
+			OUT.write(19);
 		} catch (Exception e) {
 			connect(0);
 			return requestMessagesFromAgendaItem(id_agenda_item);
@@ -1017,7 +1051,7 @@ public class Client {
 	
 	public static boolean requestIfClientExists(String userName) {
 		try {
-			OUT.write(25);
+			OUT.write(21);
 		} catch (Exception e) {
 			connect(0);
 			return requestIfClientExists(userName);
@@ -1347,26 +1381,30 @@ public class Client {
 	}
 	
 	public static boolean testIfUserNamesExists(String guests) {
-		guests = guests.replaceAll(", ", ",");
+		guests = guests.replaceAll(" ", "");
 		String[] listOfGuests = guests.split(",");
 		for (String g : listOfGuests) {
 			if (!requestIfClientExists(g)) {
 				return false;
 			}
 		}
-		// System.out.println("false");
 		return true;
 	}
 	
 	private static ArrayList<Integer> getRightOptions(String options, int flag) {
-		String[] rightOptions = options.split("\n");
-		if (rightOptions.length == 1) {
+		String[] rightOptions = options.replace(" ", "").split("\n");
+		if (options.equals("")) {
 			return null;
 		}
 		ArrayList<Integer> rightOptionsInt = new ArrayList<>();
 		for (int i = 0; i < rightOptions.length; i++) {
-			if (!rightOptions[i].split("-")[2].equals("Any Other Business") && flag == 0)
-				rightOptionsInt.add(Integer.parseInt(rightOptions[i].split("-")[1]));
+//			System.out.println(rightOptions[i]);
+			if (flag == 0) {
+				if (!rightOptions[i].split("-")[1].equals("> Any Other Business"))
+					rightOptionsInt.add(Integer.parseInt(rightOptions[i].split("-")[0]));
+			} else {
+				rightOptionsInt.add(Integer.parseInt(rightOptions[i].split("-")[0]));
+			}
 		}
 		return rightOptionsInt;
 	}
@@ -1433,7 +1471,7 @@ class ReadingThread extends Thread {
 	public void run() {
 		try {
 			while (isRunning) {
-				System.out.println(din.readUTF());
+				System.out.println("\n" + din.readUTF());
 				if (isRunning == true)
 					System.out.print(">>: ");
 			}
